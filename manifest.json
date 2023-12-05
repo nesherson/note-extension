@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "name": "Test extension",
+  "version": "1.0",
+  "description": "Test extension",
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+
+  "permissions": [
+    "activeTab", "storage", "contextMenus"
+  ],
+
+  "browser_action": {
+    "default_icon": "icons/border-48.png",
+    "default_title": "Test",
+    "default_popup": "popup/test_popup.html"
+  },
+
+  "web_accessible_resources": [
+    "css/fonts/roboto/Roboto-Medium.ttf"
+  ],
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true,
+    "type": "module"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": [
+        "https://developer.mozilla.org/en-US/blog/aria-accessibility-html-landmark-roles/"
+      ],
+      "js": [
+        "script.js"
+      ]
+    }
+  ]
+}
