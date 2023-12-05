@@ -52,30 +52,51 @@ body {
   font-size: 0.95rem;
 }
 
-.item-btn-send {
+.text-list-item-btn {
   border: none;
-  background-color: #80aaff;
   border-radius: 5px;
   color: #fff;
   padding: 5px;
-}
-
-.item-btn-send:hover {
-  background-color: #6699ff;
-
-}
-
-.item-btn-delete {
-  border: none;
-  background-color: #ff6666;
-  border-radius: 5px;
-  color: #fff;
+  cursor: pointer;
   margin-right: 5px;
-  padding: 5px;
-
 }
 
-.item-btn-delete:hover {
+.btn-send {
+  background-color: #80aaff;
+}
+
+.btn-send:hover {
+  background-color: #6699ff;
+}
+
+.btn-delete {
+  background-color: #ff6666;
+}
+
+.btn-delete:hover {
   background-color: #ff4d4d;
-  
 }
+
+.btn-edit {
+  background-color: #ffa366;
+}
+
+.btn-edit:hover {
+  background-color: #ff944d;
+}
+
+.text-list-item-input {
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid rgba(255, 163, 102, 0.9);
+  outline: none;
+  display: block;
+  width: 100%;
+  height: 80px;
+  max-width: 480px;
+  max-height: 160px;
+  margin: 0 0 8px 0;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+}
+
