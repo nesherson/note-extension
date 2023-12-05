@@ -36,5 +36,14 @@
         "script.js"
       ]
     }
-  ]
+  ],
+
+  "commands": {
+    "save-highlighted-text": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+S"
+      },
+      "description": "Save a highlighted text to extension"
+    }
+  }
 }
