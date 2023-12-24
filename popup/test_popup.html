@@ -1,25 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="test_popup.css" />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="test_popup.css" />
-</head>
+  <body>
+    <div id="popup-body" class="popup-body text-list"></div>
+    <div id="no-content" class="hidden">
+      <p>Empty.</p>
+    </div>
+    <div class="popup-footer">
+      <button id="reset" class="reset-btn">Reset</button>
+    </div>
+    <div id="error-content" class="hidden">
+      <p>Error.</p>
+    </div>
 
-<body>
-  <div id="popup-body" class="popup-body text-list">
-  </div>
-  <div id="no-content" class="hidden">
-    <p>Empty.</p>
-  </div>
-  <div class="popup-footer">
-    <button id="reset" class="reset-btn">Reset</button>
-  </div>
-  <div id="error-content" class="hidden">
-    <p>Error.</p>
-  </div>
-
-  <script src="test_popup.js"></script>
-</body>
-
+    <script src="test_popup.js"></script>
+  </body>
 </html>
