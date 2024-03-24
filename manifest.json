@@ -17,14 +17,8 @@
     "default_popup": "popup/test_popup.html"
   },
 
-  "web_accessible_resources": [
-    "css/fonts/roboto/Roboto-Medium.ttf"
-  ],
-
   "background": {
-    "scripts": ["background.js"],
-    "persistent": true,
-    "type": "module"
+    "scripts": ["background_scripts/index.js"]
   },
   
   "content_scripts": [
@@ -33,7 +27,7 @@
         "https://developer.mozilla.org/en-US/blog/aria-accessibility-html-landmark-roles/"
       ],
       "js": [
-        "script.js"
+        "content_scripts/index.js"
       ]
     }
   ],
