@@ -11,11 +11,44 @@
     <link rel="stylesheet" href="test_popup.css" />
   </head>
 
-  <body>
+  <body class="popup-container">
     <div id="popup-body" class="popup-body text-list"></div>
-    <div id="no-content" class="hidden">
-      <p>Empty.</p>
+    <div class="text-list-item">
+      <div class="text-list-item-left">
+        <p>Test paragraph 123</p>
+      </div>
+      <div class="text-list-item-right">
+        <button id="btn-more-options" class="btn-more-options">
+          <img src="../icons/more-vertical.svg"/>
+        </button>
+        <div id="more-options-popup" class="more-options-popup">
+          <ul>
+            <li>
+              <img src="../icons/send.svg">
+              <span>Send</span>
+            </li>
+            <li>
+              <img src="../icons/edit.svg">
+              <span>Edit</span>
+            </li>
+            <li>
+              <img src="../icons/x-circle.svg">
+              <span>Delete</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
     </div>
+    <div class="text-list-item">
+      <p>Test paragraph 123</p>
+      <button class="text-list-item-btn btn-edit">Edit</button>
+      <button class="text-list-item-btn btn-delete">Delete</button>
+      <button class="text-list-item-btn btn-send">Send</button>
+    </div>
+    <!-- <div id="no-content">
+      <p>Empty.</p>
+    </div> -->
     <div class="popup-footer">
       <button id="reset" class="reset-btn">Reset</button>
     </div>
