@@ -1,61 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="test_popup.css" />
-  </head>
 
-  <body class="popup-container">
-    <div id="popup-body" class="popup-body text-list"></div>
-    <div class="text-list-item">
-      <div class="text-list-item-left">
-        <p>Test paragraph 123</p>
-      </div>
-      <div class="text-list-item-right">
-        <button id="btn-more-options" class="btn-more-options">
-          <img src="../icons/more-vertical.svg"/>
-        </button>
-        <div id="more-options-popup" class="more-options-popup">
-          <ul>
-            <li>
-              <img src="../icons/send.svg">
-              <span>Send</span>
-            </li>
-            <li>
-              <img src="../icons/edit.svg">
-              <span>Edit</span>
-            </li>
-            <li>
-              <img src="../icons/x-circle.svg">
-              <span>Delete</span>
-            </li>
-          </ul>
-        </div>
+<head>
+  <meta charset="utf-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="test_popup.css" />
+</head>
 
-      </div>
-    </div>
-    <div class="text-list-item">
+<body id="popup-container" class="popup-container">
+  <div id="popup-body" class="popup-body text-list"></div>
+  <!-- <div class="text-list-item">
+    <div class="text-list-item-left">
       <p>Test paragraph 123</p>
-      <button class="text-list-item-btn btn-edit">Edit</button>
-      <button class="text-list-item-btn btn-delete">Delete</button>
-      <button class="text-list-item-btn btn-send">Send</button>
     </div>
-    <!-- <div id="no-content">
+    <div class="text-list-item-right">
+      <button class="btn-more-options">
+        <img src="../icons/more-vertical.svg" />
+      </button>
+      <div id="more-options-popup" class="more-options-popup">
+        <ul>
+          <li>
+            <img src="../icons/send.svg">
+            <span>Send</span>
+          </li>
+          <li>
+            <img src="../icons/edit.svg">
+            <span>Edit</span>
+          </li>
+          <li>
+            <img src="../icons/delete.svg">
+            <span>Delete</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div> -->
+  <!-- <div id="no-content">
       <p>Empty.</p>
     </div> -->
-    <div class="popup-footer">
-      <button id="reset" class="reset-btn">Reset</button>
-    </div>
-    <div id="error-content" class="hidden">
-      <p>Error.</p>
-    </div>
+  <div class="popup-footer">
+    <button id="btn-send-all" class="btn-footer btn-send-all">Send all</button>
+    <button id="btn-remove-all" class="btn-footer btn-remove-all">Remove all</button>
+  </div>
+  <div id="error-content" class="hidden">
+    <p>Error.</p>
+  </div>
 
-    <script src="test_popup.js"></script>
-  </body>
+  <script src="test_popup.js"></script>
+</body>
+
 </html>

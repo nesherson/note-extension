@@ -3,8 +3,23 @@ window.onload = async () => {
 };
 
 async function setup() {
-    const popupBody = document.getElementById("popup-body");
+    await loadTextItems();
+    toggleNoContentIndicator();
+    setupFooterButtons();
 
+    document.querySelector("#popup-container").onclick = (e) => {
+        const moreOptionsPopup = document.querySelector("#more-options-popup");
+        if (moreOptionsPopup &&
+            e.target.id !== "btn-more-options" &&
+            e.target.id !== "more-options-popup" &&
+            moreOptionsPopup.classList.contains("show")) {
+                moreOptionsPopup.classList.remove("show");
+            }
+    }
+}
+
+async function loadTextItems() {
+    const popupBody = document.querySelector("#popup-body");
     const data = await browser.storage.local.get("textItems");
     if (data?.textItems?.length > 0) {
         data.textItems.forEach((textItem) => {
@@ -12,11 +27,11 @@ async function setup() {
             popupBody.appendChild(textEl);
         });
     }
+}
 
-    toggleNoContentIndicator();
-
-    document.getElementById("reset").onclick = resetListOnClick;
-    document.getElementById("btn-more-options").onclick = showMoreOptionsPopup;
+function setupFooterButtons() {
+    document.getElementById("btn-remove-all").onclick = resetListOnClick;
+    document.getElementById("btn-send-all").onclick = () => console.log("Send all");
 }
 
 async function toggleNoContentIndicator() {
@@ -33,39 +48,93 @@ async function toggleNoContentIndicator() {
 
 function createTextItemElement(textItem) {
     const textListItem = document.createElement("div");
+    const textListItemLeft = document.createElement("div");
+    const textListItemRight = document.createElement("div");
     const itemText = document.createElement("p");
     const btnEdit = document.createElement("button");
     const btnDelete = document.createElement("button");
     const btnSend = document.createElement("button");
+    const btnMoreOptions = document.createElement("button");
+    const divMoreOptionsPopup = document.createElement("div");
+    const imgMoreOptions = document.createElement("img");
+    const unorderedList = document.createElement("ul");
+    const unorderedListItemSend = document.createElement("li");
+    const unorderedListItemEdit = document.createElement("li");
+    const unorderedListItemDelete = document.createElement("li");
+    const imgOptionsSend = document.createElement("img");
+    const imgOptionsEdit = document.createElement("img");
+    const imgOptionsDelete = document.createElement("img");
+    const spanOptionsSend = document.createElement("span");
+    const spanOptionsEdit = document.createElement("span");
+    const spanOptionsDelete = document.createElement("span");
 
     textListItem.classList.add("text-list-item");
     btnDelete.classList.add("text-list-item-btn", "btn-delete");
     btnSend.classList.add("text-list-item-btn", "btn-send");
     btnEdit.classList.add("text-list-item-btn", "btn-edit");
+    textListItemLeft.classList.add("text-list-item-left");
+    textListItemRight.classList.add("text-list-item-right");
+    btnMoreOptions.classList.add("btn-more-options");
+    divMoreOptionsPopup.classList.add("more-options-popup");
+    imgMoreOptions.classList.add("btn-more-options-img");
 
-    textListItem.setAttribute("id", textItem.id);
     const truncObj = truncate(textItem.text, 180);
     itemText.textContent = truncObj.text;
 
-    if (truncObj.isTruncated) itemText.setAttribute("title", textItem.text);
+    if (truncObj.isTruncated)
+        itemText.setAttribute("title", textItem.text);
+
+    textListItem.setAttribute("id", textItem.id);
+    divMoreOptionsPopup.setAttribute("id", "more-options-popup");
+    imgMoreOptions.setAttribute("src", "../icons/more-vertical.svg");
+    imgOptionsSend.setAttribute("src", "../icons/send.svg");
+    imgOptionsEdit.setAttribute("src", "../icons/edit.svg");
+    imgOptionsDelete.setAttribute("src", "../icons/delete.svg");
+    btnMoreOptions.setAttribute("id", "btn-more-options");
 
     btnDelete.textContent = "Delete";
     btnSend.textContent = "Send";
     btnEdit.textContent = "Edit";
+    spanOptionsSend.textContent = "Send";
+    spanOptionsEdit.textContent = "Edit";
+    spanOptionsDelete.textContent = "Delete";
 
-    btnDelete.onclick = () => deleteTextItem(textItem.id);
-    btnEdit.onclick = () => editTextItem(textItem.id);
-    btnSend.onclick = () => sendTextItemToNotion(textItem.id);
+    unorderedListItemSend.onclick = () => sendTextItemToNotion(textItem.id);
+    unorderedListItemEdit.onclick = () => editTextItem(textItem.id);
+    unorderedListItemDelete.onclick = () => deleteTextItem(textItem.id);
+    btnMoreOptions.onclick = showMoreOptionsPopup;
 
-    textListItem.appendChild(itemText);
-    textListItem.appendChild(btnSend);
-    textListItem.appendChild(btnEdit);
-    textListItem.appendChild(btnDelete);
+    unorderedListItemSend.appendChild(imgOptionsSend);
+    unorderedListItemSend.appendChild(spanOptionsSend);
+    unorderedListItemEdit.appendChild(imgOptionsEdit);
+    unorderedListItemEdit.appendChild(spanOptionsEdit);
+    unorderedListItemDelete.appendChild(imgOptionsDelete);
+    unorderedListItemDelete.appendChild(spanOptionsDelete);
+
+    unorderedList.appendChild(unorderedListItemSend);
+    unorderedList.appendChild(unorderedListItemEdit);
+    unorderedList.appendChild(unorderedListItemDelete);
+
+    divMoreOptionsPopup.appendChild(unorderedList);
+
+    btnMoreOptions.appendChild(imgMoreOptions);
+    textListItemRight.appendChild(btnMoreOptions);
+    textListItemRight.appendChild(divMoreOptionsPopup);
+
+    textListItemLeft.appendChild(itemText);
+
+    textListItem.appendChild(textListItemLeft);
+    textListItem.appendChild(textListItemRight);
 
     return textListItem;
 }
 
 async function resetListOnClick() {
+    removeAllTextItems();
+    await browser.storage.local.remove("textItems");
+}
+
+async function removeAllTextItems() {
     const popupBody = document.getElementById("popup-body");
 
     while (popupBody.hasChildNodes())
@@ -73,7 +142,6 @@ async function resetListOnClick() {
 
     toggleNoContentIndicator();
 
-    await browser.storage.local.remove("textItems");
 }
 
 async function deleteTextItem(textItemId) {
@@ -110,9 +178,7 @@ async function editTextItem(textItemId) {
 }
 
 async function saveEditedTextItem(textItemId) {
-    const data = await browser.storage.local.get("textItems");
-    const isTruncated = false;
-    const storedTextItems = data.textItems;
+    const storedTextItems = await getTextItems();
     const storedTextItemToEdit = storedTextItems.find(
         (ti) => ti.id === textItemId
     );
@@ -122,23 +188,14 @@ async function saveEditedTextItem(textItemId) {
     storedTextItemToEdit.text = input.value;
 
     await browser.storage.local.set({ textItems: storedTextItems });
-    textItem.removeChild(textItem.firstChild);
-    textItem.removeChild(textItem.firstChild);
 
-    const paragraph = document.createElement("p");
-    const editButton = document.createElement("button");
+    removeAllTextItems();
+    loadTextItems();
+}
 
-    const truncObj = truncate(input.value, 180, isTruncated);
-    paragraph.textContent = truncObj.text;
-
-    if (truncObj.isTruncated) paragraph.setAttribute("title", input.value);
-
-    editButton.textContent = "Edit";
-    editButton.classList.add("text-list-item-btn", "btn-edit");
-    editButton.onclick = () => editTextItem(textItem.id);
-
-    textItem.prepend(editButton);
-    textItem.prepend(paragraph);
+async function getTextItems() {
+    const data = await browser.storage.local
+        .get("textItems").textItems;
 }
 
 function truncate(str, n) {
@@ -177,7 +234,7 @@ async function sendTextItemToNotion(textItemId) {
 function showMoreOptionsPopup() {
     const popup = document.getElementById("more-options-popup");
     popup.classList.toggle("show");
-  }
+}
 
 /*
 <div class="text-list-item">

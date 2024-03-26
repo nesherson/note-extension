@@ -13,15 +13,40 @@ body {
   display: none;
 }
 
-.reset-btn {
+.popup-footer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn-footer {
   border: none;
-  width: 100%;
-  margin: 3% auto;
   padding: 4px;
+  width: 100%;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.25em;
   cursor: pointer;
   background-color: #e5f2f2;
+  border-radius: 5px;
+  gap: 5px;
+  color: #fff;
+}
+
+.btn-send-all {
+  background-color: #80aaff;
+  margin-right: 5px;
+  &:hover {
+    background-color: #6699ff;
+  }
+}
+
+
+.btn-remove-all {
+  background-color: #ff6666;
+  margin-left: 5px;
+
+  &:hover {
+    background-color: #ff4d4d;
+  }
 }
 
 .reset-btn:hover {
@@ -42,7 +67,6 @@ body {
 
 .popup-container {
   background-color: #f6f6f6;
-
 }
 
 .popup-body {
@@ -102,11 +126,19 @@ body {
   cursor: pointer;
   border: none;
   background-color: #ffffff;
-  border-radius: 50%;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
 }
 
 .btn-more-options:hover {
   background-color: #F2F2F2;
+}
+
+.btn-more-options-img {
+  pointer-events: none;
 }
 
 .text-list-item-input {
